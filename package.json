@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/WildCodeSchool/paris-js-0918-groupe8-node/issues"
   },
-  "homepage": "https://github.com/WildCodeSchool/paris-js-0918-groupe8-node#readme"
+  "homepage": "https://github.com/WildCodeSchool/paris-js-0918-groupe8-node#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "joi": "^14.3.0",
+    "morgan": "^1.9.1"
+  }
 }
