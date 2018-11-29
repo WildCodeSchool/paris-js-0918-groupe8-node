@@ -3,8 +3,10 @@ const morgan = require('morgan'); // Support HTTP request logger middleware
 const bodyParser = require('body-parser'); // Body parsing middleware
 const cors = require('cors'); // Providing a Connect/Express middleware
 const Joi = require('joi'); // Object schema validation
+const multer = require('multer'); // Middleware for handling `multipart/form-data'
 
 const app = express();
+const upload = multer({ dest: 'tmp/' });
 
 app.use(morgan('dev'));
 
