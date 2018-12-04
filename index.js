@@ -35,7 +35,7 @@ app.use("/bios", bios);
 app.use("/commentaires", commentaires);
 app.use("/medias", medias);
 
-app.get("/", (req, res) => {
+app.get("/API", (req, res) => {
     res.send("I am here '/' on the index page !?")
 });
 
