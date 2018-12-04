@@ -4,6 +4,7 @@
   "description": "A blog about Storytelling",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,10 +20,12 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
+    "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "joi": "^14.3.0",
     "morgan": "^1.9.1",
-    "multer": "^1.4.1"
+    "multer": "^1.4.1",
+    "mysql2": "^1.6.4"
   },
   "eslintConfig": {
     "extends": "airbnb",
