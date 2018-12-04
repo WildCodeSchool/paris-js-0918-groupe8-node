@@ -26,5 +26,15 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "mysql2": "^1.6.4"
+  },
+  "eslintConfig": {
+    "extends": "airbnb",
+    "parser": "babel-eslint",
+    "rules": {
+      "react/jsx-filename-extension": [
+        "js",
+        "jsx"
+      ]
+    }
   }
 }
