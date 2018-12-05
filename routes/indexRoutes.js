@@ -1,7 +1,4 @@
 const express = require('express');
-// const morgan = require('morgan');
-// const bodyParser = require('body-parser');
-// const connection = require('../config/db.js');
 
 // appel des différentes routes
 const login = require('./login.js');
@@ -13,13 +10,13 @@ const medias = require('./medias.js');
 
 const Router = express.Router();
 
-const app = express();
+// const app = express();
 
-app.use('/admin', admin);
-app.use('/login', login);
-app.use('/articles', articles);
-app.use('/bios', bios);
-app.use('/commentaires', commentaires);
-app.use('/medias', medias);
+Router.use('/admin', admin);
+Router.use('/login', login);
+Router.use('/articles', articles);
+Router.use('/bios', bios);
+Router.use('/commentaires', commentaires);
+Router.use('/medias', medias);
 
 module.exports = Router;

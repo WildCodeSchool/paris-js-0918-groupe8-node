@@ -17,7 +17,7 @@ app.use(morgan('dev'));
 app.use(cors());
 
 //  permet d'utiliser "req.body" dans "./routes/xxx.js"
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api', indexRoutes);
