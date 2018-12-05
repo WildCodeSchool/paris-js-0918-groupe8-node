@@ -6,15 +6,8 @@ const cors = require('cors'); // Providing a Connect/Express middleware
 // const multer = require('multer'); // Middleware for handling `multipart/form-data'
 // const mysql = require('mysql2');
 // const connection = require('./config/db.js');
-// const routes = require('./routes/routes.js');
+const indexRoutes = require('./routes/indexRoutes.js');
 
-// appel des différentes routes
-const admin = require('./routes/admin.js');
-const login = require('./routes/login.js');
-const articles = require('./routes/articles.js');
-const bios = require('./routes/bios.js');
-const commentaires = require('./routes/commentaires.js');
-const medias = require('./routes/medias.js');
 
 const app = express();
 // const upload = multer({ dest: 'tmp/' });
@@ -27,16 +20,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use('/api', indexRoutes);
 
-app.use('/admin', admin);
-app.use('/login', login);
-app.use('/articles', articles);
-app.use('/bios', bios);
-app.use('/commentaires', commentaires);
-app.use('/medias', medias);
-
-app.get('/API', (req, res) => {
-  res.send("I am here '/' on the index page !?");
+app.get('/api', (req, res) => {
+  res.send('happy');
 });
 
 // Ecoute du serveur sur le port définit dans le fichier ".env"
