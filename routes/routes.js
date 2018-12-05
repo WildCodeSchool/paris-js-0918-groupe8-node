@@ -18,5 +18,3 @@
 // app.use("/bios", bios);
 // app.use("/commentaires", commentaires);
 // app.use("/medias", medias);
-
-
