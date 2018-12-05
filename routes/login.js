@@ -1,14 +1,12 @@
-const express = require("express");
-const connection = require("../config/db")
+const express = require('express');
+// const connection = require('../config/db');
 const Router = express.Router();
 
-Router.get("/", (req, res) => {
-    res.send("Ceci est la route qui nous mène à /login")
+Router.get('/', (req, res) => {
+  res.send('Ceci est la route qui nous mène à /login')
 });
 
-//Ecrire les autres routes ici :)
-
-
+// Ecrire les autres routes ici :)
 
 
 module.exports = Router;
