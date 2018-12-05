@@ -1,7 +1,5 @@
 const express = require('express');
-
 // const connection = require('../config/db.js');
-
 const Router = express.Router();
 
 Router.get('/', (req, res) => {
