@@ -1,11 +1,19 @@
 const express = require('express');
-// const connection = require('../config/db');
+
 const Router = express.Router();
+const connection = require('../config/db');
 
 Router.get('/', (req, res) => {
-  res.send('Ceci est la route qui nous mène à /commentaires')
+  res.send('Tu es à la racine de /commentaires/')
 });
 
-// Ecrire les autres routes ici :)
+Router.get('/showComments', (req, res) => {
+  res.send('Tu es en bonne voie !')
+  const sql = 'SELECT * FROM conteurDigitalDB';
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
 
 module.exports = Router;
