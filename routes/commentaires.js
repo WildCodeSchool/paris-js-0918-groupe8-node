@@ -32,7 +32,7 @@ Router.post('/', (req, res) => {
   });
 });
 
-// GET -> Afficher le comment numéro :id 
+// GET -> Afficher le comment numéro :id  
 // Attention : changer le port selon la config :
 // http://localhost:3001/api/commentaires/:id
 Router.get('/:id', (req, res) => {
@@ -62,7 +62,7 @@ Router.put('/:id', (req, res) => {
   });
 });
 
-// DELETE -> Supprimer le comment numéro :id:
+// DELETE -> Supprimer un comment
 // Attention : changer le port selon la config :
 // http://localhost:3001/api/commentaires/:id
 Router.delete('/:id', (req, res) => {
