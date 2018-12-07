@@ -45,5 +45,15 @@ Router.put('/:id', (req, res) => {
   });
 });
 
+Router.delete('/:id', (req, res) => {
+  console.log(req.body);
+  const idArticle = req.params.id;
+  const sql = ('DELETE FROM article WHERE id_Article = ?');
+
+  connection.query(sql, idArticle, (err) => {
+    if (err) throw err;
+    return res.status(200);
+  });
+});
 
 module.exports = Router;
