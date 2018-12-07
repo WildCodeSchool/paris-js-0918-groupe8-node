@@ -13,8 +13,17 @@ Router.get('/', (req, res) => {
   });
 });
 
+
+Router.get('/:id/commentaires', (req, res) => {
+  const sql = 'SELECT * FROM `comment` WHERE article_id_article = ?';
+  const idArticle = req.params.id;
+  connection.query(sql, idArticle, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
 Router.post('/', (req, res) => {
-  console.log('req BODY', req.body);
   const sql = 'INSERT INTO article (id_article, create_date, update_date, title, content, blog_status, front_page_favorite) VALUES (null ,now() ,now() ,? ,? ,? ,? )';
   const values = [
     req.body.title,
@@ -29,7 +38,6 @@ Router.post('/', (req, res) => {
 });
 
 Router.put('/:id', (req, res) => {
-  console.log(req.body);
   const idArticle = req.params.id;
   const sql = ('UPDATE article SET update_date = now(), title = ?, content = ?, blog_status = ?, front_page_favorite = ? WHERE id_article = ?');
   const values = [
@@ -45,8 +53,8 @@ Router.put('/:id', (req, res) => {
   });
 });
 
+
 Router.delete('/:id', (req, res) => {
-  console.log(req.body);
   const idArticle = req.params.id;
   const sql = ('DELETE FROM article WHERE id_Article = ?');
 
