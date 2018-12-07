@@ -32,4 +32,26 @@ Router.post('/', (req, res) => {
   });
 });
 
+// GET -> Afficher le comment numéro :id (changer le port selon la config) :
+// http://localhost:3001/api/commentaires/:id
+Router.get('/:id', (req, res) => {
+  const idComment = req.params.id;
+  const sql = ('SELECT * FROM comment WHERE id_comment = ?');
+
+  connection.query(sql, idComment, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
+// PUT -> Modifier le comment numéro :id
+// http://localhost:3001/api/commentaires/:id
+
+// route à écrire ici...
+
+// DELETE -> Supprimer le comment numéro :id:
+// http://localhost:3001/api/commentaires/:id
+
+// route à écrire ici...
+
 module.exports = Router;
