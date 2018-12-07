@@ -3,7 +3,7 @@ const connection = require('../config/db');
 
 const Router = express.Router();
 
-//récupère les informations de TOUS les admins, SAUF le password
+// récupère les informations de TOUS les admins, SAUF le password
 Router.get('/', (req, res) => {
   // connection à la base de données, et création d'un fichier JSON
   // pas de SELECT *, car le password ne doit jamais être récupéré
@@ -19,7 +19,7 @@ Router.get('/', (req, res) => {
 });
 
 // récupère les informations d'UN SEUL admin, SAUF le password
-Router.get('/:id', (req,res) => {
+Router.get('/:id', (req, res) => {
   const getOneAdmin = 'SELECT id_user, firstname, lastname, mail, create_date, update_date, avatar, user_right, bio_title, bio_content, bio_picture FROM admin WHERE id_user = ?'
   connection.query(getOneAdmin, [req.params.id], (err, result) => {
     // Si une erreur est survenue
@@ -42,7 +42,6 @@ Router.post('/', (req, res) => {
   connection.query(nouveauAdmin, req.body, (err, results) => {
     if (err) {
       // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
-      // console.log(err);
       res.status(500).send('Erreur lors de la sauvegarde du nouvel admin');
     } else {
       // Si tout s'est bien passé, on envoie un statut "ok" et
@@ -80,7 +79,6 @@ Router.delete('/:id', (req, res) => {
   connection.query(deleteAdmin, [idAdmin], (err) => {
     if (err) {
       // Si une erreur est survenue, alors on informe l'utilisateur de l'erreur
-      console.log(err);
       res.status(500).send("Erreur lors de la suppression de l'utilisateur");
     } else {
       // Si tout s'est bien passé, on envoie un statut "ok".
