@@ -20,7 +20,7 @@ Router.get('/', (req, res) => {
 
 // récupère les informations d'UN SEUL admin, SAUF le password
 Router.get('/:id', (req, res) => {
-  const getOneAdmin = 'SELECT id_user, firstname, lastname, mail, create_date, update_date, avatar, user_right, bio_title, bio_content, bio_picture FROM admin WHERE id_user = ?'
+  const getOneAdmin = 'SELECT id_user, firstname, lastname, mail, create_date, update_date, avatar, user_right, bio_title, bio_content, bio_picture FROM admin WHERE id_user = ?';
   connection.query(getOneAdmin, [req.params.id], (err, result) => {
     // Si une erreur est survenue
     // alors on informe l'utilisateur de l'erreur
@@ -29,7 +29,7 @@ Router.get('/:id', (req, res) => {
     // en tant que JSON.
     return res.status(200).send(result);
   });
-})
+});
 
 // créé un nouveau admin
 Router.post('/', (req, res) => {
