@@ -15,7 +15,17 @@ Router.get('/', (req, res) => {
   });
 });
 
+// Grande autoroute de l'article
+Router.get('/:id', (req, res) => {
+  const sql = 'SELECT * FROM article a, article_has_media am, media m, admin_has_article aa, admin ad, comment c, media_has_credit mc, credit cr WHERE c.article_id_article=a.id_article and ad.id_user=aa.admin_id_user and aa.article_id_article=a.id_article and m.id_media=am.media_id_media and m.id_media=mc.media_id_media and mc.media_id_media=cr.id_credit and a.id_article = ? and am.article_id_article = a.id_article';
+  const idArticle = req.params.id;
+  connection.query(sql, idArticle, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
 
+// GET id_article > medias lié
 Router.get('/:id/medias', (req, res) => {
   const sql = 'SELECT * FROM article a, article_has_media am WHERE a.id_article = ? and am.article_id_article = a.id_article';
   const idArticle = req.params.id;
@@ -26,9 +36,8 @@ Router.get('/:id/medias', (req, res) => {
 });
 
 
-// Affichage de l'auteur avec l'article
+// Affichage de l'auteur lié à l'article
 // Attention : changer le port selon la config :
-// http://localhost:3000/api/articles/
 Router.get('/:id/admin', (req, res) => {
   const sql = 'SELECT * FROM article a, admin_has_article am WHERE a.id_article = ? and am.article_id_article = a.id_article ';
   const idArticle = req.params.id;
