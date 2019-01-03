@@ -26,43 +26,17 @@ Router.get('/:id', (req, res) => {
   });
 });
 
-// FONCTIONNE SEULEMENT SI TOUTES LES TABLES CONCERNEES SONT RENSEIGNEES
-// >>ET<< EN RELATION ENTRE ELLES (article, media, crédit, admin, comment)
 
-// GET Grande autoroute de l'article avec tout les links attribué admin,comment,media et credit
-// Router.get('/:id', (req, res) => {
-//   const sql = '
-// SELECT *
-// FROM article a, article_has_media am, media m, admin_has_article aa, admin ad,
-// comment c, media_has_credit mc,credit cr WHERE c.article_id_article=a.id_article
-// and ad.id_user=aa.admin_id_user
-// and aa.article_id_article=a.id_article
-// and m.id_media=am.media_id_media
-// and m.id_media=mc.media_id_media
-// and mc.media_id_media=cr.id_credit
-// and a.id_article = ?
-// and am.article_id_article = a.id_article';
-//   const idArticle = req.params.id;
-//   connection.query(sql, idArticle, (err, result) => {
-//     if (err) throw err;
-//     return res.status(200).send(result);
-//   });
-// });
+// GET de l'article avec admin
+Router.get('/globale/:id', (req, res) => {
+  const sql = 'SELECT a.id_article, a.create_date, a.title, a.content, aa.admin_id_user, aa.article_id_article, ad.id_user, ad.firstname, ad.lastname, ad.create_date, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article = ?';
+  const idArticle = req.params.id;
+  connection.query(sql, idArticle, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
 
-// GET tous UN seul article par ID :      >>>> NE FONCTIONNE PAS <<<<<<<<<
-// Router.get('/:id/global', (req, res) => {
-//   const sql =
-//  ('SELECT (id_article, create_date, title, content, blog_status, front_page_favorite)
-//  FROM article WHERE id_article = ?
-//  UNION ALL SELECT (id_media, title, description, path, type)
-//  FROM article_has_media am, media m
-//  WHERE am.article_id_article = ? and m.id_media = am.media_id_media ');
-//   const idArticle = req.params.id;
-//   connection.query(sql, [idArticle, idArticle, idArticle], (err, result) => {
-//     if (err) throw err;
-//     return res.status(200).send(result);
-//   });
-// });
 
 // GET id_article SI medias lié
 Router.get('/:id/medias', (req, res) => {
