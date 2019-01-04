@@ -17,10 +17,22 @@ Router.get('/', (req, res) => {
 });
 
 // GET tous UN seul article par ID :
-Router.get('/:id', (req, res) => {
+// avec regex, limitant la saisie à des chiffres
+Router.get('/:id(\\d+)', (req, res) => {
   const idArticle = req.params.id;
   const sql = ('SELECT * FROM article WHERE id_article = ?');
   connection.query(sql, idArticle, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
+
+// GET accueil : accroche :
+Router.get('/accroche', (req, res) => {
+  const sql = 'SELECT title, content, main_picture FROM article WHERE id_article = 1';
+  connection.query(sql, (err, result) => {
+    console.log(result);
     if (err) throw err;
     return res.status(200).send(result);
   });
@@ -86,12 +98,23 @@ Router.post('/', (req, res) => {
 });
 
 
-// PUT modification d'un contenu d'un article :
-Router.put('/:id', (req, res) => {
+// PUT modification d'un contenu d'un article
+// avec regex, limitant la saisie à des chiffres
+Router.put('/:id(\\d+)', (req, res) => {
   const sql = ('UPDATE article SET ? WHERE id_article = ?');
   const formData = req.body;
   const idArticle = req.params.id;
   connection.query(sql, [formData, idArticle], (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
+// PUT modification accueil, accroche
+Router.put('/accroche', (req, res) => {
+  const sql = ('UPDATE article SET ? WHERE id_article = 1');
+  const formData = req.body;
+  connection.query(sql, formData, (err, result) => {
     if (err) throw err;
     return res.status(200).send(result);
   });
