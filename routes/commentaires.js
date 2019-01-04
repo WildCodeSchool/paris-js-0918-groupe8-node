@@ -28,6 +28,7 @@ Router.post('/', (req, res) => {
   ];
   connection.query(sql, values, (err, result) => {
     if (err) throw err;
+    // *INSERER 2EME REQUETE C
     return res.status(200).send(result);
   });
 });
