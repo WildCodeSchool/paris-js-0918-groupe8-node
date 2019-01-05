@@ -34,11 +34,33 @@ Router.get('/:id(\\d+)', (req, res) => {
 Router.get('/accroche', (req, res) => {
   const sql = 'SELECT title, content, main_picture FROM article WHERE id_article = 1';
   connection.query(sql, (err, result) => {
-    console.log(result);
     if (err) throw err;
     return res.status(200).send(result);
   });
 });
+
+
+// localhost:3000/api/articles/charte-short
+// GET accueil : charte courte
+Router.get('/charte-short', (req, res) => {
+  const sql = 'SELECT title, short_content FROM article WHERE id_article = 2';
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
+
+// localhost:3000/api/articles/charte-longue
+// GET page charte
+Router.get('/charte-long', (req, res) => {
+  const sql = 'SELECT title, content, main_picture FROM article WHERE id_article = 3';
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
 
 // localhost:3000/api/articles/globale/1
 // GET de l'article avec admin
@@ -119,6 +141,33 @@ Router.put('/:id(\\d+)', (req, res) => {
 // PUT modification accueil, accroche
 Router.put('/accroche', (req, res) => {
   const sql = ('UPDATE article SET ? WHERE id_article = 1');
+  const formData = req.body;
+  connection.query(sql, formData, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
+
+// localhost:3000/api/articles/charte-short
+// attention : impossible de détailler, dans le PUT, les champs à modifier
+// sinon, ceux pas modifiés sont écrasés
+// >>> Il faut, dans le front, donner accès seulement au champs 'title' + 'short_content'
+// PUT modification accueil, charte courte
+Router.put('/charte-short', (req, res) => {
+  const sql = ('UPDATE article SET ? WHERE id_article = 2');
+  const formData = req.body;
+  connection.query(sql, formData, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
+// localhost:3000/api/articles/charte-long
+// >>> Il faut, dans le front, donner accès seulement au champs 'title' + 'content' + 'main_picture'
+// PUT modification page charte
+Router.put('/charte-long', (req, res) => {
+  const sql = ('UPDATE article SET ? WHERE id_article = 3');
   const formData = req.body;
   connection.query(sql, formData, (err, result) => {
     if (err) throw err;
