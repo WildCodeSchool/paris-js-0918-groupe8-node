@@ -255,6 +255,19 @@ Router.put('/service3', (req, res) => {
   });
 });
 
+// >>> Il faut, dans le front, donner accès seulement aux champs
+// >>> 'title' + 'content' + 'main_picture'
+// PUT modification blog, mais un à la fois
+// localhost:3000/api/articles/blog/:id
+Router.put('/blog/:id(\\d{2,})', (req, res) => {
+  const sql = ('UPDATE article SET ? WHERE id_article = 7');
+  const formData = req.body;
+  connection.query(sql, formData, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
 
 // localhost:3000/api/articles/11
 // DELETE effacer un article selon d'id:
