@@ -19,7 +19,7 @@ Router.get('/', (req, res) => {
 // Attention : changer le port selon la config :
 // http://localhost:3001/api/commentaires/
 Router.post('/', (req, res) => {
-  const sql = 'INSERT INTO comment (id_comment, create_date, update_date, content, pseudo_anominous, mail, article_id_article) VALUES (null, now(), now(), ?, ?, ?, ?)';
+  const sql = 'INSERT INTO comment (content, pseudo_anominous, mail, article_id_article) VALUES (?, ?, ?, ?)';
   const values = [
     req.body.content,
     req.body.pseudo_anominous,
@@ -28,7 +28,6 @@ Router.post('/', (req, res) => {
   ];
   connection.query(sql, values, (err, result) => {
     if (err) throw err;
-    // *INSERER 2EME REQUETE C
     return res.status(200).send(result);
   });
 });
@@ -41,6 +40,18 @@ Router.get('/:id', (req, res) => {
   const sql = ('SELECT * FROM comment WHERE id_comment = ?');
 
   connection.query(sql, idComment, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
+
+// localhost:3000/api/commentaires/10
+// GET id_article SI commentaire lié
+Router.get('/article/:id/', (req, res) => {
+  const sql = 'SELECT * FROM `comment` WHERE article_id_article = ?';
+  const idArticle = req.params.id;
+  connection.query(sql, idArticle, (err, result) => {
     if (err) throw err;
     return res.status(200).send(result);
   });
