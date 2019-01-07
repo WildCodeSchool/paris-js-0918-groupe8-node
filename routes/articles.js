@@ -33,7 +33,7 @@ const Router = express.Router();
 // localhost:3001/api/articles/blog/10
 // GET de l'article du blog avec admin
 Router.get('/blog/:id(\\d{2,})', (req, res) => {
-  const sql = 'SELECT a.id_article, a.create_date, a.title, a.content, a.main_picture, ad.firstname, ad.lastname, ad.create_date, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article = ?';
+  const sql = 'SELECT a.id_article, a.create_date, a.title, a.content, a.main_picture, a.blog_status, a.front_page_favorite, ad.firstname, ad.lastname, ad.create_date, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article = ?';
   const idArticle = req.params.id;
   connection.query(sql, idArticle, (err, result) => {
     if (err) throw err;
@@ -44,7 +44,7 @@ Router.get('/blog/:id(\\d{2,})', (req, res) => {
 // localhost:3001/api/articles/blog
 // GET de tous les articles avec admin, id_article > 9
 Router.get('/blog', (req, res) => {
-  const sql = 'SELECT a.id_article, a.create_date, a.title, a.content, a.main_picture, ad.firstname, ad.lastname, ad.create_date, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article > 9';
+  const sql = 'SELECT a.id_article, a.create_date, a.title, a.content, a.main_picture, a.blog_status, a.front_page_favorite, ad.firstname, ad.lastname, ad.create_date, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article > 9';
   connection.query(sql, (err, result) => {
     if (err) throw err;
     return res.status(200).send(result);
@@ -143,7 +143,7 @@ Router.post('/', (req, res) => {
     req.body.blog_status,
     req.body.front_page_favorite,
   ];
-  connection.query(sql, valuesArticle, (err, result) => {
+  connection.query(sql, valuesArticle, (err) => {
     if (err) throw err;
     const sqlRelation = 'INSERT INTO admin_has_article (admin_id_user, article_id_article) VALUES (?, LAST_INSERT_ID())';
     const idAdmin = req.body.admin_id_user;
