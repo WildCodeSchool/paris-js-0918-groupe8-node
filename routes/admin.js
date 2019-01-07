@@ -29,25 +29,24 @@ Router.get('/:id', (req, res) => {
 // créé un nouveau admin
 Router.post('/', (req, res) => {
   // récupération des données envoyées
-  const nouveauAdmin = 'INSERT INTO admin (firstname,lastname, mail, password, avatar, user_right, bio_title, bio_content, bio_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const nouveauAdmin = 'INSERT INTO admin (firstname, lastname, mail, linkedin, twitter, password, avatar, user_right, bio_title, bio_content_short, bio_content, bio_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
   const values = [
     req.body.firstname,
     req.body.lastname,
     req.body.mail,
+    req.body.linkedin,
+    req.body.twitter,
     req.body.password,
     req.body.avatar,
     req.body.user_right,
     req.body.bio_title,
+    req.body.bio_content_short,
     req.body.bio_content,
     req.body.bio_picture,
   ];
   connection.query(nouveauAdmin, values, (err) => {
-    if (err) {
-      res.status(500).send('Erreur lors de la sauvegarde du nouvel admin');
-      // res.json(err)
-    } else {
-      res.status(200).send('Nouvel utilisateur créé');
-    }
+    if (err) throw err;
+    res.status(200).send('Nouvel utilisateur créé');
   });
 });
 
