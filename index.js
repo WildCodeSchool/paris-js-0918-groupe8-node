@@ -27,6 +27,8 @@ app.get('/api', (req, res) => {
   res.send('happy');
 });
 
+app.use('/public', express.static('public'));
+
 // Ecoute du serveur sur le port définit dans le fichier ".env"
 // ou sur le port 3000 par défaut.
 const server = app.listen(process.env.PORT || 3000, () => {
