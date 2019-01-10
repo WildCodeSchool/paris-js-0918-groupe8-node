@@ -165,12 +165,30 @@ Router.post('/', (req, res) => {
 // PUT modification d'un contenu d'un article du blog
 // avec regex, limitant la saisie à des chiffres
 Router.put('/blog/:id(\\d{2,})', (req, res) => {
-  const sql = ('UPDATE article SET ? WHERE id_article = ?');
+  const countFavorits = ('SELECT count(id_article) AS count FROM article WHERE front_page_favorite=1;');
+  const stateArt = ('SELECT front_page_favorite FROM article WHERE id_article = ?');
+  const updateArticle = ('UPDATE article SET ? WHERE id_article = ?');
   const formData = req.body;
   const idArticle = req.params.id;
-  connection.query(sql, [formData, idArticle], (err, result) => {
-    if (err) throw err;
-    return res.status(200).send(result);
+  connection.query(stateArt, [idArticle], (err, resultState) => {
+    if (resultState[0].front_page_favorite) {
+      connection.query(updateArticle, [formData, idArticle], (errState, result) => {
+        if (errState) throw errState;
+        res.status(200).send(result);
+      });
+    } else {
+      connection.query(countFavorits, (errCount, resultCount) => {
+        if (resultCount[0].count > 2) {
+          if (errCount) throw errCount;
+          res.json({ flash: 'Vous avez déjà 3 articles en favoris :)' });
+        } else {
+          connection.query(updateArticle, [formData, idArticle], (errUpdate, result) => {
+            if (errUpdate) throw errUpdate;
+            res.status(200).send(result);
+          });
+        }
+      });
+    }
   });
 });
 
