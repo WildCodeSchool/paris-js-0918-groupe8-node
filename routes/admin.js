@@ -29,13 +29,14 @@ Router.get('/:id', (req, res) => {
 // créé un nouveau admin
 Router.post('/', (req, res) => {
   // récupération des données envoyées
-  const nouveauAdmin = 'INSERT INTO admin (firstname, lastname, mail, linkedin, twitter, password, avatar, user_right, bio_title, bio_content_short, bio_content, bio_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const nouveauAdmin = 'INSERT INTO admin (firstname, lastname, mail, linkedin, twitter, instagram, password, avatar, user_right, bio_title, bio_content_short, bio_content, bio_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
   const values = [
     req.body.firstname,
     req.body.lastname,
     req.body.mail,
     req.body.linkedin,
     req.body.twitter,
+    req.body.instagram,
     req.body.password,
     req.body.avatar,
     req.body.user_right,
