@@ -44,7 +44,37 @@ Router.get('/blog/:id(\\d{2,})', (req, res) => {
 // localhost:3001/api/articles/blog
 // GET de tous les articles avec admin, id_article > 9
 Router.get('/blog', (req, res) => {
-  const sql = 'SELECT a.id_article, a.create_date, a.update_date, a.title, a.content, a.main_picture, a.blog_status, a.front_page_favorite, ad.firstname, ad.lastname, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article > 9';
+  const sql = 'SELECT a.id_article, a.create_date, a.update_date, a.title, a.content, a.main_picture, a.blog_status, a.front_page_favorite, ad.firstname, ad.lastname, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article > 9 ORDER BY a.create_date desc';
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
+// localhost:3001/api/articles/blog/publies
+// GET de tous les articles PUBLIES avec admin, id_article > 9
+Router.get('/blog/publies', (req, res) => {
+  const sql = 'SELECT a.id_article, a.create_date, a.update_date, a.title, a.content, a.main_picture, a.blog_status, a.front_page_favorite, ad.firstname, ad.lastname, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article > 9 AND blog_status = "published" ORDER BY a.create_date DESC';
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
+// localhost:3001/api/articles/blog/brouillons
+// GET de tous les articles BROUILLON avec admin, id_article > 9
+Router.get('/blog/brouillons', (req, res) => {
+  const sql = 'SELECT a.id_article, a.create_date, a.update_date, a.title, a.content, a.main_picture, a.blog_status, a.front_page_favorite, ad.firstname, ad.lastname, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article > 9 AND blog_status = "writting_progress" ORDER BY a.create_date DESC';
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
+// localhost:3001/api/articles/blog/archives
+// GET de tous les articles ARCHIVES avec admin, id_article > 9
+Router.get('/blog/archives', (req, res) => {
+  const sql = 'SELECT a.id_article, a.create_date, a.update_date, a.title, a.content, a.main_picture, a.blog_status, a.front_page_favorite, ad.firstname, ad.lastname, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article > 9 AND blog_status = "archived" ORDER BY a.create_date DESC';
   connection.query(sql, (err, result) => {
     if (err) throw err;
     return res.status(200).send(result);
