@@ -7,7 +7,7 @@ const Router = express.Router();
 Router.get('/', (req, res) => {
   // connection à la base de données, et création d'un fichier JSON
   // pas de SELECT *, car le password ne doit jamais être récupéré
-  const consultAdmin = 'SELECT id_user, firstname, lastname, mail, linkedin, twitter, create_date, update_date, avatar, user_right, bio_title, bio_content_short, bio_content, bio_picture FROM admin';
+  const consultAdmin = 'SELECT id_user, firstname, lastname, mail, linkedin, twitter, instagram, create_date, update_date, avatar, user_right, bio_title, bio_content_short, bio_content, bio_picture FROM admin';
   connection.query(consultAdmin, (err, result) => {
     if (err) throw err;
     return res.status(200).send(result);
@@ -16,7 +16,7 @@ Router.get('/', (req, res) => {
 
 // récupère les informations d'UN SEUL admin, SAUF le password
 Router.get('/:id', (req, res) => {
-  const getOneAdmin = 'SELECT id_user, firstname, lastname, mail, linkedin, twitter, create_date, update_date, avatar, user_right, bio_title, bio_content_short, bio_content, bio_picture FROM admin WHERE id_user = ?';
+  const getOneAdmin = 'SELECT id_user, firstname, lastname, mail, linkedin, twitter, instagram,create_date, update_date, avatar, user_right, bio_title, bio_content_short, bio_content, bio_picture FROM admin WHERE id_user = ?';
   connection.query(getOneAdmin, [req.params.id], (err, result) => {
     if (err) {
       res.status(500).send('Erreur lors de la récupèration d\'un admin');
@@ -29,13 +29,14 @@ Router.get('/:id', (req, res) => {
 // créé un nouveau admin
 Router.post('/', (req, res) => {
   // récupération des données envoyées
-  const nouveauAdmin = 'INSERT INTO admin (firstname, lastname, mail, linkedin, twitter, password, avatar, user_right, bio_title, bio_content_short, bio_content, bio_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const nouveauAdmin = 'INSERT INTO admin (firstname, lastname, mail, linkedin, twitter, instagram, password, avatar, user_right, bio_title, bio_content_short, bio_content, bio_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
   const values = [
     req.body.firstname,
     req.body.lastname,
     req.body.mail,
     req.body.linkedin,
     req.body.twitter,
+    req.body.instagram,
     req.body.password,
     req.body.avatar,
     req.body.user_right,
