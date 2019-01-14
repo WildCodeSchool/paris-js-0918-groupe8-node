@@ -11,8 +11,8 @@ Router.post('/', (req, res) => {
     port: 465,
     secure: true,
     auth: {
-      user: 'conteurdigital99',
-      pass: '123456789cd!',
+      user: process.env.NODEMAILER_USER,
+      pass: process.env.NODEMAILER_PASS,
     },
   });
 
