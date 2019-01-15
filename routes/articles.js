@@ -51,36 +51,6 @@ Router.get('/blog', (req, res) => {
   });
 });
 
-// localhost:3001/api/articles/blog/publies
-// GET de tous les articles PUBLIES avec admin, id_article > 9
-Router.get('/blog/publies', (req, res) => {
-  const sql = 'SELECT a.id_article, a.create_date, a.update_date, a.title, a.content, a.main_picture, a.blog_status, a.front_page_favorite, ad.firstname, ad.lastname, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article > 9 AND blog_status = "published" ORDER BY a.create_date DESC';
-  connection.query(sql, (err, result) => {
-    if (err) throw err;
-    return res.status(200).send(result);
-  });
-});
-
-// localhost:3001/api/articles/blog/brouillons
-// GET de tous les articles BROUILLON avec admin, id_article > 9
-Router.get('/blog/brouillons', (req, res) => {
-  const sql = 'SELECT a.id_article, a.create_date, a.update_date, a.title, a.content, a.main_picture, a.blog_status, a.front_page_favorite, ad.firstname, ad.lastname, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article > 9 AND blog_status = "writting_progress" ORDER BY a.create_date DESC';
-  connection.query(sql, (err, result) => {
-    if (err) throw err;
-    return res.status(200).send(result);
-  });
-});
-
-// localhost:3001/api/articles/blog/archives
-// GET de tous les articles ARCHIVES avec admin, id_article > 9
-Router.get('/blog/archives', (req, res) => {
-  const sql = 'SELECT a.id_article, a.create_date, a.update_date, a.title, a.content, a.main_picture, a.blog_status, a.front_page_favorite, ad.firstname, ad.lastname, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article > 9 AND blog_status = "archived" ORDER BY a.create_date DESC';
-  connection.query(sql, (err, result) => {
-    if (err) throw err;
-    return res.status(200).send(result);
-  });
-});
-
 // // GET id_article SI admin lié
 // // même fonction que la route globale, mais formulé différemment
 // Router.get('/:id/admin', (req, res) => {
@@ -195,6 +165,21 @@ Router.post('/', (req, res) => {
 // PUT modification d'un contenu d'un article du blog
 // avec regex, limitant la saisie à des chiffres
 Router.put('/blog/:id(\\d{2,})', (req, res) => {
+  const updateArticle = ('UPDATE article SET ? WHERE id_article = ?');
+  const formData = req.body;
+  const idArticle = req.params.id;
+  connection.query(updateArticle, [formData, idArticle], (err, result) => {
+    if (err) throw err;
+    return res.status(200).send(result);
+  });
+});
+
+// localhost:3001/api/articles/blog/favoris/10
+// champs à prévoir :
+// title, content, main_picture, blog_status, front_page_favorite
+// PUT modification d'un contenu d'un article du blog
+// avec regex, limitant la saisie à des chiffres
+Router.put('/blog/favoris/:id(\\d{2,})', (req, res) => {
   const countFavorits = ('SELECT count(id_article) AS count FROM article WHERE front_page_favorite=1;');
   const stateArt = ('SELECT front_page_favorite FROM article WHERE id_article = ?');
   const updateArticle = ('UPDATE article SET ? WHERE id_article = ?');
