@@ -99,7 +99,7 @@ Router.get('/charte-long', (req, res) => {
 // localhost:3001/api/articles/newsletter
 // GET accueil : newsletter
 Router.get('/newsletter', (req, res) => {
-  const sql = 'SELECT title, content FROM article WHERE id_article = 4';
+  const sql = 'SELECT title, short_content FROM article WHERE id_article = 4';
   connection.query(sql, (err, result) => {
     if (err) throw err;
     return res.status(200).send(result);
