@@ -33,7 +33,7 @@ const Router = express.Router();
 // localhost:3001/api/articles/blog/10
 // GET de l'article du blog avec admin
 Router.get('/blog/:id(\\d{2,})', (req, res) => {
-  const sql = 'SELECT a.id_article, a.create_date, a.update_date, a.title, a.content, a.main_picture, a.blog_status, a.front_page_favorite, ad.firstname, ad.lastname, ad.create_date, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article = ?';
+  const sql = 'SELECT a.id_article, a.create_date, a.update_date, a.title, a.content, a.main_picture, a.blog_status, a.front_page_favorite, ad.firstname, ad.lastname, ad.avatar FROM article as a JOIN admin_has_article AS aa ON a.id_article = aa.article_id_article JOIN admin AS ad ON aa.admin_id_user = ad.id_user WHERE a.id_article = ?';
   const idArticle = req.params.id;
   connection.query(sql, idArticle, (err, result) => {
     if (err) throw err;
