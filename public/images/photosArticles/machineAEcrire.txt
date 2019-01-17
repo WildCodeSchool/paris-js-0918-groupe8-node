@@ -1,0 +1,14 @@
+https://foter.com/photo2/shiny-happy-letters-reprise/
+
+
+attribute photo
+
+Copy and paste this code under photo
+or at the bottom of your post (HTML):
+Photo by <a href="https://foter.com/author2/0b16c8">sunside</a> on <a href="https://foter.com/re2/17e506">Foter.com</a> / <a href="http://creativecommons.org/licenses/by-nc-nd/2.0/">CC BY-NC-ND</a>
+
+Copy and paste this code under photo
+or at the bottom of your post:
+
+Photo by sunside on Foter.com / CC BY-NC-ND
+
