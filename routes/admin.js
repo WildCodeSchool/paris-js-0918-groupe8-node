@@ -67,6 +67,22 @@ Router.put('/:id', (req, res) => {
   });
 });
 
+
+Router.put('/:id', (req, res) => {
+  // quand '/:id' > params
+  const idAdmin = req.params.id;
+  // SET ? = n'importe quel champs
+  const modifAdmin = 'UPDATE admin SET ? WHERE id_user = ?';
+  // [req.body] afin de garder le contenus des champs déjà renseignés
+  connection.query(modifAdmin, [req.body, idAdmin], (err) => {
+    if (err) {
+      res.status(500).send('Erreur lors de la modification de l\'utilisateur');
+    } else {
+      res.status(200).send('La modification a été effectuée.');
+    }
+  });
+});
+
 // efface UN admin
 Router.delete('/:id', (req, res) => {
   // récupération des données envoyées (params=id dans url)
