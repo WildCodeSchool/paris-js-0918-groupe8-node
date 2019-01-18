@@ -67,6 +67,22 @@ Router.put('/:id', (req, res) => {
   });
 });
 
+// Route pour modifié la bio content
+Router.put('/bio/:id', (req, res) => {
+  // quand '/:id' > params
+  const idAdmin = req.params.id;
+  // SET ? = n'importe quel champs
+  const modifAdmin = 'UPDATE admin SET ? WHERE id_user = ?';
+  // [req.body] afin de garder le contenus des champs déjà renseignés
+  connection.query(modifAdmin, [req.body, idAdmin], (err, result) => {
+    if (err) {
+      res.status(500).send('Erreur lors de la modification de la personne');
+    } else {
+      res.status(200).send('La modification a été effectuée.');
+    }
+  });
+});
+
 // efface UN admin
 Router.delete('/:id', (req, res) => {
   // récupération des données envoyées (params=id dans url)
