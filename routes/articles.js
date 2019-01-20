@@ -245,7 +245,7 @@ Router.put('/charte-long', (req, res) => {
 
 // localhost:3001/api/articles/newsletter
 // >>> Il faut, dans le front, donner accès seulement aux champs
-// >>> 'title' + 'short_content' + 'content' + 'main_picture'
+// >>> 'title' + 'short_content' + 'main_picture'
 // PUT modification accueil newsletter
 Router.put('/newsletter', (req, res) => {
   const sql = ('UPDATE article SET ? WHERE id_article = 4');
