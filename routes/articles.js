@@ -77,7 +77,7 @@ Router.get('/accroche', (req, res) => {
 // localhost:3001/api/articles/charte-short
 // GET accueil : charte courte
 Router.get('/charte-short', (req, res) => {
-  const sql = 'SELECT title, short_content FROM article WHERE id_article = 2';
+  const sql = 'SELECT title, short_content, content FROM article WHERE id_article = 2';
   connection.query(sql, (err, result) => {
     if (err) throw err;
     return res.status(200).send(result);
@@ -99,7 +99,7 @@ Router.get('/charte-long', (req, res) => {
 // localhost:3001/api/articles/newsletter
 // GET accueil : newsletter
 Router.get('/newsletter', (req, res) => {
-  const sql = 'SELECT title, short_content FROM article WHERE id_article = 4';
+  const sql = 'SELECT title, short_content, content FROM article WHERE id_article = 4';
   connection.query(sql, (err, result) => {
     if (err) throw err;
     return res.status(200).send(result);
@@ -220,7 +220,7 @@ Router.put('/accroche', (req, res) => {
 });
 
 // localhost:3001/api/articles/charte-short
-// >>> Il faut, dans le front, donner accès seulement au champs 'title' + 'short_content'
+// >>> Il faut, dans le front, donner accès seulement au champs 'title' + 'short_content' + 'content'
 // PUT modification accueil, charte courte
 Router.put('/charte-short', (req, res) => {
   const sql = ('UPDATE article SET ? WHERE id_article = 2');
