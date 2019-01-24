@@ -1,5 +1,6 @@
 const express = require('express');
 const connection = require('../config/db');
+const checkAuth = require('../controllers/check-auth');
 
 const Router = express.Router();
 
@@ -27,7 +28,7 @@ Router.get('/:id', (req, res) => {
 });
 
 // créé un nouveau admin
-Router.post('/', (req, res) => {
+Router.post('/', checkAuth, (req, res) => {
   // récupération des données envoyées
   const nouveauAdmin = 'INSERT INTO admin (firstname, lastname, mail, linkedin, twitter, instagram, password, avatar, user_right, bio_title, bio_content_short, bio_content, bio_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
   const values = [
@@ -52,7 +53,7 @@ Router.post('/', (req, res) => {
 });
 
 // modification d'UN ou plusieurs champs d'UN admin (SANS MODIFIER LES AUTRES !)
-Router.put('/:id', (req, res) => {
+Router.put('/:id', checkAuth, (req, res) => {
   // quand '/:id' > params
   const idAdmin = req.params.id;
   // SET ? = n'importe quel champs
@@ -68,7 +69,7 @@ Router.put('/:id', (req, res) => {
 });
 
 // Route pour modifié la bio content
-Router.put('/bio/:id', (req, res) => {
+Router.put('/bio/:id', checkAuth, (req, res) => {
   // quand '/:id' > params
   const idAdmin = req.params.id;
   // SET ? = n'importe quel champs
@@ -84,7 +85,7 @@ Router.put('/bio/:id', (req, res) => {
 });
 
 // efface UN admin
-Router.delete('/:id', (req, res) => {
+Router.delete('/:id', checkAuth, (req, res) => {
   // récupération des données envoyées (params=id dans url)
   const idAdmin = req.params.id;
   const deleteAdmin = 'DELETE FROM admin WHERE id_user = ?';
