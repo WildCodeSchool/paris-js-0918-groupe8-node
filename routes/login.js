@@ -20,9 +20,11 @@ Router.get('/', (req, res) => {
 //   });
 // });
 
+// localhost:3001/api/login
+// POST du login pour authentification et génération du token JWT envoyé en réponse
 Router.post('/', (req, res) => {
   console.log(req.body);
-  if (req.body.email === 'a@a' && req.body.password === 'a') {
+  if (req.body.email === process.env.ADMIN_USER && req.body.password === process.env.ADMIN_PASS) {
     const tokenInfo = {
       name: 'admin',
       role: 'admin',
@@ -37,7 +39,7 @@ Router.post('/', (req, res) => {
   }
 });
 
-// récupération du Bearer token envoyé par le front
+// FONCTION conversion du Bearer token envoyé par le client
 const getToken = (req) => {
   if (
     req.headers.authorization
@@ -47,11 +49,14 @@ const getToken = (req) => {
   }
   return null;
 };
-// vérification routes protégées par token
+
+// localhost:3001/api/login/protected
+// POST du token client pour vérification lors de la navigation sur les routes protégées
 Router.post('/protected', (req, res) => {
+  // appelle de la fonction getToken pour réucpérer le token sans "bearer"
   const token = getToken(req);
   console.log(token);
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err) => {
     if (err) {
       console.log(err);
       return res.status(401).send({ flash: 'Accès non autorisé !' });
