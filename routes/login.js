@@ -23,14 +23,14 @@ Router.get('/', (req, res) => {
 // localhost:3001/api/login
 // POST du login pour authentification et génération du token JWT envoyé en réponse
 Router.post('/', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   if (req.body.email === process.env.ADMIN_USER && req.body.password === process.env.ADMIN_PASS) {
     const tokenInfo = {
       name: 'admin',
       role: 'admin',
     };
     const token = jwt.sign(tokenInfo, process.env.JWT_SECRET, { expiresIn: '1h' });
-    console.log(token);
+    // console.log(token);
     res.header('Access-Control-Expose-Headers', 'x-access-token');
     res.set('x-access-token', token);
     res.status(200).send({ flash: 'Vous êtes connecté' });
@@ -54,11 +54,12 @@ const getToken = (req) => {
 // POST du token client pour vérification lors de la navigation sur les routes protégées
 Router.post('/protected', (req, res) => {
   // appelle de la fonction getToken pour réucpérer le token sans "bearer"
+  // console.log(req);
   const token = getToken(req);
-  console.log(token);
+  // console.log(token);
   jwt.verify(token, process.env.JWT_SECRET, (err) => {
     if (err) {
-      console.log(err);
+      // console.log(err);
       return res.status(401).send({ flash: 'Accès non autorisé !' });
     }
     return res.status(200).send({ flash: 'Accès autorisé' });

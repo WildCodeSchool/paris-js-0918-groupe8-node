@@ -13,8 +13,8 @@ const Router = express.Router();
 
 // const app = express();
 
-Router.use('/admin', admin);
 Router.use('/login', login);
+Router.use('/admin', admin);
 Router.use('/articles', articles);
 Router.use('/commentaires', commentaires);
 Router.use('/medias', medias);

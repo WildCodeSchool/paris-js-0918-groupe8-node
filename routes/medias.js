@@ -1,5 +1,6 @@
 const express = require('express');
 const connection = require('../config/db');
+const checkAuth = require('../controllers/check-auth');
 
 const Router = express.Router();
 
@@ -24,7 +25,7 @@ Router.get('/:id/credit', (req, res) => {
 
 
 // Création d'un nouveau média
-Router.post('/', (req, res) => {
+Router.post('/', checkAuth, (req, res) => {
   const sql = 'INSERT INTO media SET ?';
   connection.query(sql, req.body, (err, result) => {
     if (err) throw err;
@@ -33,7 +34,7 @@ Router.post('/', (req, res) => {
 });
 
 // Création d'un nouveau credit
-Router.post('/credit', (req, res) => {
+Router.post('/credit', checkAuth, (req, res) => {
   const sql = 'INSERT INTO credit SET ?';
   connection.query(sql, req.body, (err, result) => {
     if (err) throw err;
@@ -42,7 +43,7 @@ Router.post('/credit', (req, res) => {
 });
 
 // Création d'un nouveau media has credit
-Router.post('/mediacredit', (req, res) => {
+Router.post('/mediacredit', checkAuth, (req, res) => {
   const sql = 'INSERT INTO media_has_credit SET ?';
   connection.query(sql, req.body, (err, result) => {
     if (err) throw err;
@@ -50,7 +51,7 @@ Router.post('/mediacredit', (req, res) => {
   });
 });
 // Modification d'un média
-Router.put('/:id', (req, res) => {
+Router.put('/:id', checkAuth, (req, res) => {
   const sql = ('UPDATE media, media_has_credit, credit SET ? WHERE id_media = ?');
   const formData = req.body;
   const idMedia = req.params.id;
@@ -61,7 +62,7 @@ Router.put('/:id', (req, res) => {
 });
 
 // Suppression d'un média
-Router.delete('/:id', (req, res) => {
+Router.delete('/:id', checkAuth, (req, res) => {
   const idMedia = req.params.id;
   const sql = ('DELETE FROM media WHERE id_Media = ?');
 
