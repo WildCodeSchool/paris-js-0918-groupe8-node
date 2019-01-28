@@ -1,0 +1,49 @@
+{
+  "name": "les-conteurs-du-digital",
+  "version": "1.0.0",
+  "description": "A blog about Storytelling",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WildCodeSchool/paris-js-0918-groupe8-node.git"
+  },
+  "author": "paris-js-0918-groupe8-node",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WildCodeSchool/paris-js-0918-groupe8-node/issues"
+  },
+  "homepage": "https://github.com/WildCodeSchool/paris-js-0918-groupe8-node#readme",
+  "dependencies": {
+    "babel-eslint": "^10.0.1",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.1.0",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "express": "^4.16.4",
+    "joi": "^14.3.0",
+    "jsonwebtoken": "^8.4.0",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.1",
+    "mysql2": "^1.6.4",
+    "nodemailer": "^5.1.1"
+  },
+  "eslintConfig": {
+    "extends": "airbnb",
+    "parser": "babel-eslint",
+    "rules": {
+      "no-console": 0,
+      "react/jsx-filename-extension": [
+        "js",
+        "jsx"
+      ]
+    }
+  }
+}

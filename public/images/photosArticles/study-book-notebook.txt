@@ -1,0 +1,21 @@
+study book notebook 
+
+https://foter.com/photo2/study-book-notebook/
+
+attribute photo
+
+Copy and paste this code under photo
+or at the bottom of your post (HTML):
+Photo on <a href="https://foter.com/re2/17e506">Foter.com</a>
+
+Copy and paste this code under photo
+or at the bottom of your post:
+
+Photo on Foter.com
+
+Check License
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+Commercial Use OK
+Modifications OK 
+
