@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `conteurDigitalDB` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+USE `conteurDigitalDB`;
 -- MySQL dump 10.13  Distrib 5.7.24, for Linux (x86_64)
 --
 -- Host: localhost    Database: conteurDigitalDB
@@ -333,4 +335,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-28 13:34:40
+-- Dump completed on 2019-01-28 15:17:43
