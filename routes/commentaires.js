@@ -1,7 +1,8 @@
 const express = require('express');
+const connection = require('../config/db');
+const checkAuth = require('../controllers/check-auth');
 
 const Router = express.Router();
-const connection = require('../config/db');
 
 
 // GET tous les commentaires :
@@ -18,7 +19,7 @@ Router.get('/', (req, res) => {
 // POST 1 nouveau commentaire :
 // Attention : changer le port selon la config :
 // http://localhost:3001/api/commentaires/
-Router.post('/', (req, res) => {
+Router.post('/', checkAuth, (req, res) => {
   const sql = 'INSERT INTO comment (content, pseudo_anominous, mail, article_id_article) VALUES (?, ?, ?, ?)';
   const values = [
     req.body.content,
@@ -60,7 +61,7 @@ Router.get('/article/:id/', (req, res) => {
 // PUT -> Modifier le comment numéro :id
 // Attention : changer le port selon la config :
 // http://localhost:3001/api/commentaires/:id
-Router.put('/:id', (req, res) => {
+Router.put('/:id', checkAuth, (req, res) => {
   const idComment = req.params.id;
   const sql = ('UPDATE comment SET update_date = now(), content = ? WHERE id_comment = ?');
   const values = [
@@ -77,7 +78,7 @@ Router.put('/:id', (req, res) => {
 // DELETE -> Supprimer un comment
 // Attention : changer le port selon la config :
 // http://localhost:3001/api/commentaires/:id
-Router.delete('/:id', (req, res) => {
+Router.delete('/:id', checkAuth, (req, res) => {
   const idComment = req.params.id;
   const sql = ('DELETE FROM comment WHERE id_comment = ?');
 

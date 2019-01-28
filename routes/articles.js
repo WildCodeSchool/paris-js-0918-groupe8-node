@@ -1,6 +1,7 @@
 const express = require('express');
 
 const connection = require('../config/db');
+const checkAuth = require('../controllers/check-auth');
 
 const Router = express.Router();
 
@@ -134,7 +135,7 @@ Router.get('/services', (req, res) => {
 // title, content, main_picture, blog_status, front_page_favorite,
 // >>>>>   + OBLIGATOIRE : admin_id_user !!   <<<<<<
 // POST 1 nouvel article :
-Router.post('/', (req, res) => {
+Router.post('/', checkAuth, (req, res) => {
   const sql = 'INSERT INTO article (title, content, main_picture, blog_status, front_page_favorite) VALUES (? ,? ,? ,?, ?)';
   const valuesArticle = [
     req.body.title,
@@ -164,7 +165,7 @@ Router.post('/', (req, res) => {
 // title, content, main_picture, blog_status, front_page_favorite
 // PUT modification d'un contenu d'un article du blog
 // avec regex, limitant la saisie à des chiffres
-Router.put('/blog/:id(\\d{2,})', (req, res) => {
+Router.put('/blog/:id(\\d{2,})', checkAuth, (req, res) => {
   const updateArticle = ('UPDATE article SET ? WHERE id_article = ?');
   const formData = req.body;
   const idArticle = req.params.id;
@@ -179,7 +180,7 @@ Router.put('/blog/:id(\\d{2,})', (req, res) => {
 // title, content, main_picture, blog_status, front_page_favorite
 // PUT modification d'un contenu d'un article du blog
 // avec regex, limitant la saisie à des chiffres
-Router.put('/blog/favoris/:id(\\d{2,})', (req, res) => {
+Router.put('/blog/favoris/:id(\\d{2,})', checkAuth, (req, res) => {
   const countFavorits = ('SELECT count(id_article) AS count FROM article WHERE front_page_favorite=1;');
   const stateArt = ('SELECT front_page_favorite FROM article WHERE id_article = ?');
   const updateArticle = ('UPDATE article SET ? WHERE id_article = ?');
@@ -210,7 +211,7 @@ Router.put('/blog/favoris/:id(\\d{2,})', (req, res) => {
 // localhost:3001/api/articles/accroche
 // >>> Il faut, dans le front, donner accès seulement au champs 'title' + 'content'
 // PUT modification accueil, accroche
-Router.put('/accroche', (req, res) => {
+Router.put('/accroche', checkAuth, (req, res) => {
   const sql = ('UPDATE article SET ? WHERE id_article = 1');
   const formData = req.body;
   connection.query(sql, formData, (err, result) => {
@@ -222,7 +223,7 @@ Router.put('/accroche', (req, res) => {
 // localhost:3001/api/articles/charte-short
 // >>> Il faut, dans le front, donner accès seulement au champs 'title' + 'short_content' + 'content'
 // PUT modification accueil, charte courte
-Router.put('/charte-short', (req, res) => {
+Router.put('/charte-short', checkAuth, (req, res) => {
   const sql = ('UPDATE article SET ? WHERE id_article = 2');
   const formData = req.body;
   connection.query(sql, formData, (err, result) => {
@@ -234,7 +235,7 @@ Router.put('/charte-short', (req, res) => {
 // localhost:3001/api/articles/charte-long
 // >>> Il faut, dans le front, donner accès seulement au champs 'title' + 'content' + 'main_picture'
 // PUT modification page charte
-Router.put('/charte-long', (req, res) => {
+Router.put('/charte-long', checkAuth, (req, res) => {
   const sql = ('UPDATE article SET ? WHERE id_article = 3');
   const formData = req.body;
   connection.query(sql, formData, (err, result) => {
@@ -247,7 +248,7 @@ Router.put('/charte-long', (req, res) => {
 // >>> Il faut, dans le front, donner accès seulement aux champs
 // >>> 'title' + 'short_content' + 'main_picture'
 // PUT modification accueil newsletter
-Router.put('/newsletter', (req, res) => {
+Router.put('/newsletter', checkAuth, (req, res) => {
   const sql = ('UPDATE article SET ? WHERE id_article = 4');
   const formData = req.body;
   connection.query(sql, formData, (err, result) => {
@@ -261,7 +262,7 @@ Router.put('/newsletter', (req, res) => {
 // PUT modification accueil 3 services, mais un à la fois
 
 // localhost:3001/api/articles/service1
-Router.put('/service1', (req, res) => {
+Router.put('/service1', checkAuth, (req, res) => {
   const sql = ('UPDATE article SET ? WHERE id_article = 5');
   const formData = req.body;
   connection.query(sql, formData, (err, result) => {
@@ -270,7 +271,7 @@ Router.put('/service1', (req, res) => {
   });
 });
 // localhost:3001/api/articles/service2
-Router.put('/service2', (req, res) => {
+Router.put('/service2', checkAuth, (req, res) => {
   const sql = ('UPDATE article SET ? WHERE id_article = 6');
   const formData = req.body;
   connection.query(sql, formData, (err, result) => {
@@ -279,7 +280,7 @@ Router.put('/service2', (req, res) => {
   });
 });
 // localhost:3001/api/articles/service3
-Router.put('/service3', (req, res) => {
+Router.put('/service3', checkAuth, (req, res) => {
   const sql = ('UPDATE article SET ? WHERE id_article = 7');
   const formData = req.body;
   connection.query(sql, formData, (err, result) => {
